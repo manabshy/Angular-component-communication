@@ -3,12 +3,13 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angula
 import { IProduct } from './product';
 import { ProductService } from './product.service';
 import { NgModel } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit, AfterViewInit {
+export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
     showImage: boolean;
 
@@ -20,7 +21,33 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     products: IProduct[];
     listFilter: string;
     @ViewChild('filterElement') filterElementRef: ElementRef;
-    @ViewChild(NgModel) filterInput: NgModel;
+    private _sub: Subscription;
+    private _filterInput: NgModel;
+
+    get filterInput(): NgModel {
+        return this._filterInput;
+    }
+    @ViewChild(NgModel)
+    set filterInput(value: NgModel) {
+        this._filterInput = value;
+        console.log(this.filterInput);
+        if (this.filterInput && !this._sub) {
+            console.log('subscribing');
+            this._sub = this.filterInput.valueChanges.subscribe(
+
+                () => {
+                    this.performFilter(this.listFilter);
+                    console.log('performed the filter');
+
+                }
+
+            );
+        }
+        if (this.filterElementRef) {
+        this.filterElementRef.nativeElement.focus();
+        }
+
+    }
     constructor(private productService: ProductService) {
     }
 
@@ -35,13 +62,6 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         );
     }
 
-    ngAfterViewInit(): void {
-        console.log(this.filterInput);
-        this.filterInput.valueChanges.subscribe(
-            () => this.performFilter(this.listFilter)
-        );
-        this.filterElementRef.nativeElement.focus();
-        }
 
     toggleImage(): void {
         this.showImage = !this.showImage;
