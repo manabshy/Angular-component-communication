@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { IProduct } from './product';
 import { ProductService } from './product.service';
@@ -19,35 +19,7 @@ export class ProductListComponent implements OnInit {
 
     filteredProducts: IProduct[];
     products: IProduct[];
-    listFilter: string;
-    @ViewChild('filterElement') filterElementRef: ElementRef;
-    private _sub: Subscription;
-    private _filterInput: NgModel;
 
-    get filterInput(): NgModel {
-        return this._filterInput;
-    }
-    @ViewChild(NgModel)
-    set filterInput(value: NgModel) {
-        this._filterInput = value;
-        console.log(this.filterInput);
-        if (this.filterInput && !this._sub) {
-            console.log('subscribing');
-            this._sub = this.filterInput.valueChanges.subscribe(
-
-                () => {
-                    this.performFilter(this.listFilter);
-                    console.log('performed the filter');
-
-                }
-
-            );
-        }
-        if (this.filterElementRef) {
-        this.filterElementRef.nativeElement.focus();
-        }
-
-    }
     constructor(private productService: ProductService) {
     }
 
@@ -56,7 +28,7 @@ export class ProductListComponent implements OnInit {
         this.productService.getProducts().subscribe(
             (products: IProduct[]) => {
                 this.products = products;
-                this.performFilter(this.listFilter);
+                this.performFilter();
             },
             (error: any) => this.errorMessage = <any>error
         );
