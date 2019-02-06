@@ -6,9 +6,10 @@
     <div class='panel-body'>
         <!-- Filter by the Title   -->
         <div class='row'>
-            <pm-criteria [displayDetail]='showFilterDetails' [headCount]="filteredProducts?.length" class='col-sm-10'> </pm-criteria>
-        </div>
+            <pm-criteria #filterCriteria [displayDetail]='showFilterDetails' [headCount]="filteredProducts?.length" class='col-sm-10'> </pm-criteria>
+            {{filterCriteria.listFilter}}
 
+        </div>
         <div class='table-responsive'>
             <table class='table'
                     *ngIf='products && products.length'>

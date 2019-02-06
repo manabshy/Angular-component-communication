@@ -6,7 +6,7 @@ import { Component, ViewChild, OnInit , ElementRef, AfterViewInit, Input, OnChan
   styleUrls: ['./criteria.component.css']
 })
 export class CriteriaComponent implements OnInit, AfterViewInit, OnChanges {
-  lsFilter: string;
+  listFilter: string = 'cart';
   @Input() displayDetail: boolean;
   @Input() headCount: number;
   @ViewChild('filterElement') filterElementRef: ElementRef;
