@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
 
     filteredProducts: IProduct[];
     products: IProduct[];
-
+    showFilterDetails: boolean = true;
     constructor(private productService: ProductService) {
     }
 
