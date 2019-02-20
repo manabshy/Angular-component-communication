@@ -82,7 +82,7 @@ export class ProductService {
                             tap(data =>  {
                                 this.products.push(data);
                                 this.currentProduct = data;
-                            },
+                            }),
                             catchError(this.handleError)
                         );
     }
