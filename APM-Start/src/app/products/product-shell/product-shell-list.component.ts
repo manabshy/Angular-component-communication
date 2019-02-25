@@ -25,6 +25,7 @@ export class ProductShellListComponent implements OnInit {
 
   onSelected(product: IProduct) {
     this.productService.currentProduct = product;
+    // product shell list detail component will read this property:currentProduct and display the selected product
 
   }
 
