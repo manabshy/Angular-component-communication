@@ -9,6 +9,7 @@
               class='list-group-item'
               *ngFor='let product of products'
               (click)="onSelected(product)">
+        <!-- These below properties are bound that will Angular Change Detection to picks up the modified product when any of the properties changes- -->
         {{ product.productName }} ({{ product.productCode }})
       </button>
     </div>

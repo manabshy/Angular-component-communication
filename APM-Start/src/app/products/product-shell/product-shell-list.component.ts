@@ -25,6 +25,7 @@ export class ProductShellListComponent implements OnInit {
 
   onSelected(product: IProduct) {
     this.productService.currentProduct = product;
+    // Everytime this property changes - currentProduct - Which is a product.productName property defined in the product shell detail component template,angular change detection picks up that the value is changed and the getter in product shell detail component returns the modified current product from the service. All of this works because the property is bound and change detection provides the change notifications.
 
   }
 
